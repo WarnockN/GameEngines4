@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-//always make sure to redeclare any static variables at the top of the class.
+//SHAKED SAYS: always make sure to redeclare any static variables at the top of the class!
 unique_ptr<Engine> Engine::engineInstance = nullptr;
 
 Engine::Engine() : window(nullptr), isRunning(false) {}
