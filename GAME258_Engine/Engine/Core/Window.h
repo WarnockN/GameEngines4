@@ -15,9 +15,11 @@ public:
 	~Window();
 	bool OnCreate(string name_, int width_, int height_);
 	void OnDestroy();
-	int GetWidth() const;
-	int GetHeight() const;
-	SDL_Window* GetWindow() const;
+
+	//getters
+	inline int GetWidth() const { return width; }
+	inline int GetHeight() const { return height; }
+	inline SDL_Window* GetWindow() const { return window; }
 
 private:
 	void SetPreAttributes();

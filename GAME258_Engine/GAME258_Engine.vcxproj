@@ -142,11 +142,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Core\Engine.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Engine\Core\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Engine\Core\Engine.h" />
+    <ClInclude Include="Engine\Core\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

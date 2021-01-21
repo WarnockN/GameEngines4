@@ -60,6 +60,8 @@ bool Window::OnCreate(string name_, int width_, int height_) {
 
 	//enable depth test, used for rendering. takes z axis into account.
 	glEnable(GL_DEPTH_TEST);
+
+	//print OpenGL version, just to check
 	cout << "OpenGL version: " << glGetString(GL_VERSION) << endl;
 
 	return true;
@@ -72,24 +74,25 @@ void Window::OnDestroy() {
 	window = nullptr;
 }
 
-int Window::GetWidth() const {
-	return width;
-}
-
-int Window::GetHeight() const {
-	return height;
-}
-
-SDL_Window* Window::GetWindow() const {
-	return nullptr;
-}
-
+/*set all of our OpenGL window attributes
+	1. Gets rid of any depricated functions -- set profile mask to core
+	2. set OpenGL major version 4
+	3. set OpenGL minor version 5
+	-- THIS MEANS WE ARE USING OPENGL VERSION 4.5 --
+	4. enable double buffering -- safety to prevent graphical tears or stutters.
+	5. set the swap interval to be equal to the vertical retrace. //I assume this is similar to the V-Sync setting to prevent screen tear?//
+	6. set glewExperimental to true, allows for us to track erros for experimental GPU extensions
+*/
 void Window::SetPreAttributes() {
-
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
+	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	SDL_GL_SetSwapInterval(1);
+	glewExperimental = GL_TRUE;
 }
 
+//set our depth size to 32, we are doing this after we set our context to prevent OpenGL from reverting to v1.1, in case it didnt understand what our context was.
 void Window::SetPostAttributes() {
-
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
 }
-
-//test commit with extension
