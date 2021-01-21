@@ -1,9 +1,21 @@
 #include "Engine.h"
 
+//always make sure to redeclare any static variables at the top of the class.
+unique_ptr<Engine> Engine::engineInstance = nullptr;
+
 Engine::Engine() : window(nullptr), isRunning(false) {}
 
-Engine::~Engine() {
+Engine::~Engine() {}
 
+//get our engine instance -- use this to access anything in the engine class that is public.
+Engine* Engine::GetInstance() {
+	//if our engine instance returns nullptr, restart the engine.
+	//if everything works, simply get the engineInstance
+	if (engineInstance.get() == nullptr) {
+		engineInstance.reset(new Engine);
+	}
+
+	return engineInstance.get();
 }
 
 bool Engine::OnCreate(string name_, int width_, int height_) {
