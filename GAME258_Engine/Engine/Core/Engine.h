@@ -2,6 +2,7 @@
 #define ENGINE_H
 
 #include "Window.h"
+#include "Timer.h"
 #include <memory>
 
 
@@ -16,7 +17,6 @@ public:
 
 	lastly, we move our constructor and destructor to private
 	*/
-
 	Engine(const Engine&) = delete;
 	Engine(Engine&&) = delete;
 	Engine& operator=(const Engine&) = delete;
@@ -47,5 +47,8 @@ private:
 
 	Window* window;
 	bool isRunning;
+	
+	Timer timer;
+	unsigned int fps;
 };
 #endif

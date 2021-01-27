@@ -3,7 +3,7 @@
 //SHAKED SAYS: always make sure to redeclare any static variables at the top of the class!
 unique_ptr<Engine> Engine::engineInstance = nullptr;
 
-Engine::Engine() : window(nullptr), isRunning(false) {}
+Engine::Engine() : window(nullptr), isRunning(false), fps(60) {}
 
 Engine::~Engine() {}
 
@@ -27,6 +27,10 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 		OnDestroy();
 		return isRunning = false;
 	}
+
+	//make sure to start timer, has to be last thing we do.
+	timer.Start();
+
 	//if OnCreate works, set isRunning to true
 	return isRunning = true;
 }
@@ -34,9 +38,15 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 void Engine::Run() {
 	//while isRunning is true, continuously call Update/Render
 	while (isRunning) {
-		//update -- this number is 1/60 AKA 60FPS
-		Update(0.016f);
+		//update our previous and current ticks
+		timer.UpdateFrameTicks();
+		
+		//update -- this number is 60FPS
+		Update(timer.GetDeltaTime());
 		Render();
+		
+		//delay our update until sleep time has finished, based on our fps value
+		SDL_Delay(timer.GetSleepTime(fps));
 	}
 	
 	//when isRunning is false, pack up and go home
@@ -44,7 +54,8 @@ void Engine::Run() {
 }
 
 void Engine::Update(const float deltaTime_) {
-
+	//print our deltaTime to the console.
+	cout << deltaTime_ << endl;
 }
 
 /*Render the window
