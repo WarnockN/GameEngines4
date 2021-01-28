@@ -3,7 +3,7 @@
 //SHAKED SAYS: always make sure to redeclare any static variables at the top of the class!
 unique_ptr<Engine> Engine::engineInstance = nullptr;
 
-Engine::Engine() : window(nullptr), isRunning(false), fps(60), gameManager(nullptr) {}
+Engine::Engine() : window(nullptr), isRunning(false), fps(60), gameManager(nullptr), currentSceneNum(0) {}
 
 Engine::~Engine() {}
 
@@ -66,6 +66,10 @@ void Engine::Run() {
 	OnDestroy();
 }
 
+//exit function -- close the program
+void Engine::Exit() { isRunning = false; }
+
+//update our window
 void Engine::Update(const float deltaTime_) {
 	if (gameManager) { 
 		gameManager->Update(deltaTime_); 

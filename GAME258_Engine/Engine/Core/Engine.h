@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include "Debug.h"
 #include "GameManager.h"
+#include "Scene.h"
 #include <memory>
 
 
@@ -29,11 +30,15 @@ public:
 	
 	bool OnCreate(string name_, int width_, int height_);
 	void Run();
+	void Exit();
 
 	//getters and setters
-	inline bool GetIsRunning() { return isRunning; }
+	inline bool GetIsRunning() const { return isRunning; }
 
 	inline void SetGameManager(GameManager* gameManager_) { gameManager = gameManager_; }
+
+	inline int GetCurrentScene() const { return currentSceneNum; }
+	inline void SetCurrentScene(int sceneNum_) { currentSceneNum = sceneNum_; }
 
 private:
 	Engine();
@@ -56,5 +61,7 @@ private:
 	unsigned int fps;
 
 	GameManager* gameManager;
+
+	int currentSceneNum;
 };
 #endif
