@@ -19,6 +19,7 @@ Engine* Engine::GetInstance() {
 }
 
 bool Engine::OnCreate(string name_, int width_, int height_) {
+	Debug::OnCreate();
 	window = new Window();
 
 	//if OnCreate didnt run, print console msg, and pack up and go home
@@ -27,6 +28,9 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 		OnDestroy();
 		return isRunning = false;
 	}
+	
+	//print log msg if everything worked with Debug::OnCreate
+	Debug::Info("Debug OnCreate initialized correctly.", "Engine.cpp", __LINE__);
 
 	//make sure to start timer, has to be last thing we do.
 	timer.Start();

@@ -3,6 +3,7 @@
 
 #include "Window.h"
 #include "Timer.h"
+#include "Debug.h"
 #include <memory>
 
 
