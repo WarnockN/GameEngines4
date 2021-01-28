@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "Timer.h"
 #include "Debug.h"
+#include "GameManager.h"
 #include <memory>
 
 
@@ -29,8 +30,10 @@ public:
 	bool OnCreate(string name_, int width_, int height_);
 	void Run();
 
-	//getters
+	//getters and setters
 	inline bool GetIsRunning() { return isRunning; }
+
+	inline void SetGameManager(GameManager* gameManager_) { gameManager = gameManager_; }
 
 private:
 	Engine();
@@ -51,5 +54,7 @@ private:
 	
 	Timer timer;
 	unsigned int fps;
+
+	GameManager* gameManager;
 };
 #endif

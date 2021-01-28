@@ -3,7 +3,7 @@
 //SHAKED SAYS: always make sure to redeclare any static variables at the top of the class!
 unique_ptr<Engine> Engine::engineInstance = nullptr;
 
-Engine::Engine() : window(nullptr), isRunning(false), fps(60) {}
+Engine::Engine() : window(nullptr), isRunning(false), fps(60), gameManager(nullptr) {}
 
 Engine::~Engine() {}
 
@@ -24,11 +24,20 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 
 	//if OnCreate didnt run, print console msg, and pack up and go home
 	if (!window->OnCreate(name_, width_, height_)) {
-		cout << "Failed to initialize" << endl;
+		cout << "Failed to initialize window." << endl;
 		OnDestroy();
 		return isRunning = false;
 	}
 	
+	//if game exists -- if the game does exist, if OnCreate didnt run, print console msg, and pack up and go home
+	if (gameManager) {
+		if (!gameManager->OnCreate()) {
+			cout << "Failed to initalize game manager." << endl;
+			OnDestroy();
+			return isRunning = false;
+		}
+	}
+
 	//print log msg if everything worked with Debug::OnCreate
 	Debug::Info("Debug OnCreate initialized correctly.", "Engine.cpp", __LINE__);
 
@@ -58,8 +67,10 @@ void Engine::Run() {
 }
 
 void Engine::Update(const float deltaTime_) {
-	//print our deltaTime to the console.
-	cout << deltaTime_ << endl;
+	if (gameManager) { 
+		gameManager->Update(deltaTime_); 
+		cout << deltaTime_ << endl; 
+	}
 }
 
 /*Render the window
@@ -71,7 +82,9 @@ void Engine::Update(const float deltaTime_) {
 void Engine::Render() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	//Call game render
+	//call game render	
+	if (gameManager) gameManager->Render();
+
 	SDL_GL_SwapWindow(window->GetWindow());
 }
 
@@ -81,8 +94,12 @@ void Engine::Render() {
 	3. call exit(0) to finalize exit. Exit the entire program
 */
 void Engine::OnDestroy() {
+	delete gameManager;
+	gameManager = nullptr;
+	
 	delete window;
 	window = nullptr;
+
 	SDL_Quit();
 	exit(0);
 }
