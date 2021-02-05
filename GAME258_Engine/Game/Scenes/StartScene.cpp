@@ -7,11 +7,21 @@ StartScene::~StartScene() {
 }
 
 bool StartScene::OnCreate() {
-	cout << "Started scene" << endl;
+	Debug::Info("Sart Scene.", "StartScene.cpp", __LINE__);
+	cout << "StartScene" << endl;
 	return true;
 }
 
 void StartScene::Update(const float deltaTime_) {
+	if (SDL_PollEvent(&event)) {
+		switch (event.key.keysym.sym) {
+		case SDLK_1:
+			Engine::GetInstance()->SetCurrentScene(1);
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void StartScene::Render() {

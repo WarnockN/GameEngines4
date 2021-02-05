@@ -1,5 +1,6 @@
 #include "Window.h"
 
+
 //makes sure the important private vars are null
 Window::Window() : window(nullptr), context(nullptr) {
 	/*window = nullptr;
@@ -14,7 +15,7 @@ Window::~Window() {
 bool Window::OnCreate(string name_, int width_, int height_) {
 	//initalize SDL_Video -- give console error if it didnt work, return false to break out of the loop
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		cout << "Failed to initialize SDL" << endl;
+		Debug::FatalError("Failed to initialize SDL.", "Window.cpp", __LINE__);
 		return false;
 	}
 	
@@ -40,7 +41,7 @@ bool Window::OnCreate(string name_, int width_, int height_) {
 
 	//if window returns null -- give console error if it didnt work, return false to break out of the loop
 	if (!window) {
-		cout << "Failed to create window" << endl;
+		Debug::FatalError("Failed to create window.", "Window.cpp", __LINE__);
 		return false;
 	}
 	
@@ -54,7 +55,7 @@ bool Window::OnCreate(string name_, int width_, int height_) {
 
 	//if glew enum state does not return OK -- give console error if it didnt work, return false to break out of loop.
 	if (err != GLEW_OK) {
-		cout << "Failed to initialze GLEW" << endl;
+		Debug::FatalError("Failed to initalize GLEW.", "Window.cpp", __LINE__);
 		return false;
 	}
 

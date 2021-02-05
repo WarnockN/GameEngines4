@@ -5,14 +5,18 @@
 
 using namespace std;
 
+
+
 class StartScene : public Scene {
-public:
+public:	
 	StartScene();
 	virtual ~StartScene();
 
 	bool OnCreate() override;
 	void Update(const float deltaTime_) override;
 	void Render() override;
+private:
+	SDL_Event event;
 };
 #endif
 

@@ -15,14 +15,15 @@ bool Game1::OnCreate() {
 		currentScene = new StartScene();
 		currentSceneNum = 0;
 		return currentScene->OnCreate();
-	} 
-	cout << "Engine's scene not initalized to 0" << endl;
+	}
+	Debug::FatalError("Engine's scene not initalized to 0.", "Game1.cpp", __LINE__);
 	return false;
 }
 
 void Game1::Update(const float deltaTime_) {
 	//if our current scene num is not equal to the engine's current scene, build the scene
 	if (currentSceneNum != Engine::GetInstance()->GetCurrentScene()) BuildScene();
+
 	
 	//otherwise, update the scene as needed
 	currentScene->Update(deltaTime_);
@@ -55,7 +56,7 @@ void Game1::BuildScene() {
 
 	currentSceneNum = Engine::GetInstance()->GetCurrentScene();
 	if (!currentScene->OnCreate()) {
-		cout << "Scene failed to create." << endl;
+		Debug::FatalError("Scene failed to create.", "Game1.cpp", __LINE__);
 		Engine::GetInstance()->Exit();
 	}
 }

@@ -24,7 +24,7 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 
 	//if OnCreate didnt run, print console msg, and pack up and go home
 	if (!window->OnCreate(name_, width_, height_)) {
-		cout << "Failed to initialize window." << endl;
+		Debug::FatalError("Failed to initialize window.", "Engine.cpp", __LINE__);
 		OnDestroy();
 		return isRunning = false;
 	}
@@ -32,14 +32,14 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 	//if game exists -- if the game does exist, if OnCreate didnt run, print console msg, and pack up and go home
 	if (gameManager) {
 		if (!gameManager->OnCreate()) {
-			cout << "Failed to initalize game manager." << endl;
+			Debug::FatalError("Failed to initialize Game Manager.", "Engine.cpp", __LINE__);
 			OnDestroy();
 			return isRunning = false;
 		}
 	}
 
 	//print log msg if everything worked with Debug::OnCreate
-	Debug::Info("Debug OnCreate initialized correctly.", "Engine.cpp", __LINE__);
+	Debug::Info("OnCreate initialized correctly.", "Engine.cpp", __LINE__);
 
 	//make sure to start timer, has to be last thing we do.
 	timer.Start();

@@ -1,1 +1,3 @@
-[INFO]: Debug OnCreate initialized correctly. in: Engine.cpp on line: 42
+[INFO]: Sart Scene. in: StartScene.cpp on line: 10
+[INFO]: OnCreate initialized correctly. in: Engine.cpp on line: 42
+[INFO]: Game Scene. in: GameScene.cpp on line: 10
