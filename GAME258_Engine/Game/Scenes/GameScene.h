@@ -4,6 +4,7 @@
 #include "../../Engine/Core/Engine.h"
 
 using namespace std;
+using namespace glm;
 
 class GameScene : public Scene {
 public:
@@ -13,6 +14,9 @@ public:
 	bool OnCreate() override;
 	void Update(const float deltaTime_) override;
 	void Render() override;
+
+private:
+	GameObject* gObject;
 };
 #endif
 

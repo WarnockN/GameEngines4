@@ -84,7 +84,7 @@ void Engine::Update(const float deltaTime_) {
 	3. call the game render
 */
 void Engine::Render() {
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	//call game render	
 	if (gameManager) gameManager->Render();

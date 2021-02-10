@@ -1,12 +1,14 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
+#include <memory>
 #include "Window.h"
 #include "Timer.h"
 #include "Debug.h"
 #include "GameManager.h"
 #include "Scene.h"
-#include <memory>
+#include "../Rendering/3D/GameObject.h"
+
 
 
 using namespace std;
@@ -63,5 +65,7 @@ private:
 	GameManager* gameManager;
 
 	int currentSceneNum;
+
+
 };
 #endif
