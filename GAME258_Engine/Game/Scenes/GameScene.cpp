@@ -9,7 +9,7 @@ GameScene::~GameScene() {
 }
 
 bool GameScene::OnCreate() {
-	Debug::Info("Game Scene.", "GameScene.cpp", __LINE__);
+	Debug::Info("Game Scene created.", "GameScene.cpp", __LINE__);
 	cout << "Game Scene" << endl;
 	//create our vertex ref and our vertexList ref, make sure to reserve the number of elements that you need
 	Vertex v;

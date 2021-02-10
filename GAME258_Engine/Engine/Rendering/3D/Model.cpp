@@ -18,7 +18,7 @@ Model::~Model() {
 }
 
 void Model::Render() {
-	for (auto m : meshes) m->Render();
+	for (auto m : meshes) m->Render(); 
 }
 
 void Model::AddMesh(Mesh* mesh_) {
