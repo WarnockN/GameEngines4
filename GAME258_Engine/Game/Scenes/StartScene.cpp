@@ -8,7 +8,7 @@ StartScene::~StartScene() {
 
 bool StartScene::OnCreate() {
 	Debug::Info("Sart Scene.", "StartScene.cpp", __LINE__);
-	cout << "StartScene" << endl;
+
 	return true;
 }
 
