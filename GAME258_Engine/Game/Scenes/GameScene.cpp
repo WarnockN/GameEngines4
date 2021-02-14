@@ -17,9 +17,17 @@ bool GameScene::OnCreate() {
 	vertexList.reserve(3);
 
 	//create the verticies for our triangle
-	v.position = vec3(0.0f, 0.5f, 0.0f);
+	v.position = vec3(-0.5f, 0.5f, 0.0f);
 	vertexList.push_back(v);
 	v.position = vec3(-0.5f, -0.5f, 0.0f);
+	vertexList.push_back(v);
+	v.position = vec3(0.5f, -0.5f, 0.0f);
+	vertexList.push_back(v);
+
+	//triangle 2
+	v.position = vec3(-0.5f, 0.5f, 0.0f);
+	vertexList.push_back(v);
+	v.position = vec3(0.5f, 0.5f, 0.0f);
 	vertexList.push_back(v);
 	v.position = vec3(0.5f, -0.5f, 0.0f);
 	vertexList.push_back(v);
