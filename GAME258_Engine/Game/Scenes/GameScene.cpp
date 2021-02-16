@@ -17,23 +17,28 @@ bool GameScene::OnCreate() {
 	vertexList.reserve(3);
 
 	//create the verticies for our triangle
-	v.position = vec3(-0.5f, 0.5f, 0.0f);
+	v.position = vec3(0.0f, 0.5f, 0.0f);
+	v.colour = vec3(1.0f, 0.0f, 0.0f);
 	vertexList.push_back(v);
+
 	v.position = vec3(-0.5f, -0.5f, 0.0f);
+	v.colour = vec3(0.0f, 1.0f, 0.0f);
 	vertexList.push_back(v);
+
 	v.position = vec3(0.5f, -0.5f, 0.0f);
+	v.colour = vec3(0.0f, 0.0f, 1.0f);
 	vertexList.push_back(v);
 
 	//triangle 2
-	v.position = vec3(-0.5f, 0.5f, 0.0f);
+	/*v.position = vec3(-0.5f, 0.5f, 0.0f);
 	vertexList.push_back(v);
 	v.position = vec3(0.5f, 0.5f, 0.0f);
 	vertexList.push_back(v);
 	v.position = vec3(0.5f, -0.5f, 0.0f);
-	vertexList.push_back(v);
+	vertexList.push_back(v);*/
 
 	//create our model ref and add the mesh to our new model
-	Model* model = new Model();
+	Model* model = new Model(ShaderHandler::GetInstance()->GetShader("colourShader"));
 	model->AddMesh(new Mesh(vertexList));
 	
 	//create the game object with our assosciated mesh

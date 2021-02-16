@@ -28,6 +28,8 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 		OnDestroy();
 		return isRunning = false;
 	}
+
+	ShaderHandler::GetInstance()->CreateProgram("colourShader", "Engine/Shaders/ColourVertexShader.glsl", "Engine/Shaders/ColourFragmentShader.glsl");
 	
 	//if game exists -- if the game does exist, if OnCreate didnt run, print console msg, and pack up and go home
 	if (gameManager) {
@@ -84,7 +86,7 @@ void Engine::Update(const float deltaTime_) {
 	3. call the game render
 */
 void Engine::Render() {
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//call game render	
 	if (gameManager) gameManager->Render();
@@ -98,6 +100,8 @@ void Engine::Render() {
 	3. call exit(0) to finalize exit. Exit the entire program
 */
 void Engine::OnDestroy() {
+	ShaderHandler::GetInstance()->OnDestroy();
+
 	delete gameManager;
 	gameManager = nullptr;
 	

@@ -8,6 +8,7 @@
 #include "GameManager.h"
 #include "Scene.h"
 #include "../Rendering/3D/GameObject.h"
+#include "../Graphics/ShaderHandler.h"
 
 
 
