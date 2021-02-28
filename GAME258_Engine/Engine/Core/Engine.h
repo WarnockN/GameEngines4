@@ -9,7 +9,7 @@
 #include "Scene.h"
 #include "../Rendering/3D/GameObject.h"
 #include "../Graphics/ShaderHandler.h"
-
+#include "Camera.h"
 
 
 using namespace std;
@@ -43,6 +43,12 @@ public:
 	inline int GetCurrentScene() const { return currentSceneNum; }
 	inline void SetCurrentScene(int sceneNum_) { currentSceneNum = sceneNum_; }
 
+	inline float GetScreenWidth() const { return static_cast<float>(window->GetWidth()); }
+	inline float GetScreenHeight() const { return static_cast<float>(window->GetHeight()); }
+
+	inline Camera* GetCamera() const { return camera; }
+	inline void SetCamera(Camera* camera_) { camera = camera_; }
+
 private:
 	Engine();
 	~Engine();
@@ -66,6 +72,8 @@ private:
 	GameManager* gameManager;
 
 	int currentSceneNum;
+
+	Camera* camera;
 
 
 };

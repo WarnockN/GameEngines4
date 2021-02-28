@@ -108,6 +108,9 @@ void Engine::OnDestroy() {
 	delete window;
 	window = nullptr;
 
+	delete camera;
+	camera = nullptr;
+
 	SDL_Quit();
 	exit(0);
 }

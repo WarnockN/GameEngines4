@@ -17,6 +17,7 @@ public:
 
 private:
 	GameObject* gObject;
+	Model* model;
 };
 #endif
 

@@ -4,6 +4,9 @@
 #include <glew.h>
 #include <vector>
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "../../Core/Camera.h"
 
 using namespace glm;
 using namespace std;
@@ -17,10 +20,10 @@ struct Vertex {
 
 class Mesh {
 public:
-	Mesh(vector<Vertex>& vertexList_);
+	Mesh(vector<Vertex>& vertexList_, GLuint shaderProgram_);
 	~Mesh();
 
-	void Render();
+	void Render(Camera* camera_, mat4 transform_);
 
 private:
 	void GenerateBuffers();
@@ -28,6 +31,9 @@ private:
 	  VBO = Vertex Buffer Objects // buffer that provides the ways to push data to the GPU*/
 	GLuint VAO, VBO;
 	vector<Vertex> vertexList;
+	GLuint shaderProgram;
+	
+	GLuint modelLoc, viewLoc, projLoc;
 };
 #endif
 
