@@ -6,7 +6,7 @@ int main(int argc, char* argv[]) {
 	Engine::GetInstance()->SetGameManager(new Game1);
 
 	//if OnCreate did not run delete our engine and break // OnCreate is setting the NAME, WIDTH, HEIGHT variables
-	if (!Engine::GetInstance()->OnCreate("Game258 Engine", 800, 600)) {
+	if (!Engine::GetInstance()->OnCreate("GAME258 Engine", 800, 600)) {
 		Debug::FatalError("Failed to initialize engine.", "Main.cpp", __LINE__);
 		return 0;
 	}

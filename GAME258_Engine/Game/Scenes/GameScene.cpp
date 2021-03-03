@@ -170,7 +170,7 @@ bool GameScene::OnCreate() {
 	model = new Model(ShaderHandler::GetInstance()->GetShader("colourShader"));
 	model->AddMesh(new Mesh(vertexList, ShaderHandler::GetInstance()->GetShader("colourShader")));
 
-	//model->SetScale(vec3(0.5f));
+	model->SetScale(vec3(0.5f));
 
 	//create the game object with our assosciated mesh
 	gObject = new GameObject(model);

@@ -21,8 +21,8 @@ public:
 	inline void SetRotation(vec3 rotation_) { rotation = rotation_; }
 	inline vec3 GetRotaion() const { return rotation; }
 
-	inline void SetScale(vec3 scale_) { scale = scale_; }
-	inline vec3 SetScale() const { return scale; }
+	inline void SetScale(vec3 scale_) { scaleVar = scale_; }
+	inline vec3 SetScale() const { return scaleVar; }
 
 	inline void SetAngle(float angle_) { angle = angle_; }
 	inline float GetAngle() const { return angle; }
@@ -31,7 +31,7 @@ private:
 	vector<Mesh*> meshes;
 	GLuint shaderProgram;
 
-	vec3 position, rotation, scale;
+	vec3 position, rotation, scaleVar;
 	float angle;
 
 	mat4 GetTransform() const;

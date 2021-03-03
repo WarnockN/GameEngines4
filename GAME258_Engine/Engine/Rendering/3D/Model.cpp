@@ -2,12 +2,12 @@
 
 
 Model::Model(GLuint shaderProgram_, vec3 position_, float angle_, vec3 rotation_, vec3 scale_)
-: meshes(vector<Mesh*>()), shaderProgram(0), position(vec3()), angle(0.0f), rotation(vec3(0.0f, 1.0f, 0.0f)), scale(vec3(1.0f)) {
+: meshes(vector<Mesh*>()), shaderProgram(0), position(vec3()), angle(0.0f), rotation(vec3(0.0f, 1.0f, 0.0f)), scaleVar(vec3(1.0f)) {
 	shaderProgram = shaderProgram_;
 	position = position_;
 	angle = angle_;
 	rotation = rotation_;
-	scale = scale_;
+	scaleVar = scale_;
 }
 
 Model::~Model() {
@@ -38,6 +38,6 @@ mat4 Model::GetTransform() const {
 
 	model = translate(model, position);
 	model = rotate(model, angle, rotation);
-	model = glm::scale(model, scale);
+	model = scale(model, scaleVar);
 	return model;
 }
