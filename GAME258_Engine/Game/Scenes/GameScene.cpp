@@ -14,7 +14,7 @@ bool GameScene::OnCreate() {
 	Debug::Info("Game Scene created.", "GameScene.cpp", __LINE__);
 	
 	Engine::GetInstance()->SetCamera(new Camera());
-	Engine::GetInstance()->GetCamera()->SetPosition(vec3(0.0f, 0.0f, 2.0f));
+	Engine::GetInstance()->GetCamera()->SetPosition(vec3(0.0f, 0.0f, 4.0f));
 	//create our vertex ref and our vertexList ref, make sure to reserve the number of elements that you need
 	Vertex v;
 	vector<Vertex> vertexList;
