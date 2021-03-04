@@ -75,7 +75,6 @@ void Engine::Exit() { isRunning = false; }
 void Engine::Update(const float deltaTime_) {
 	if (gameManager) { 
 		gameManager->Update(deltaTime_); 
-		cout << deltaTime_ << endl; 
 	}
 }
 
