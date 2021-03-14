@@ -30,6 +30,8 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 	}
 
 	ShaderHandler::GetInstance()->CreateProgram("colourShader", "Engine/Shaders/ColourVertexShader.glsl", "Engine/Shaders/ColourFragmentShader.glsl");
+
+	ShaderHandler::GetInstance()->CreateProgram("basicShader", "Engine/Shaders/VertexShader.glsl", "Engine/Shaders/FragmentShader.glsl");
 	
 	//if game exists -- if the game does exist, if OnCreate didnt run, print console msg, and pack up and go home
 	if (gameManager) {
@@ -100,6 +102,7 @@ void Engine::Render() {
 */
 void Engine::OnDestroy() {
 	ShaderHandler::GetInstance()->OnDestroy();
+	TextureHandler::GetInstance()->OnDestroy();
 
 	delete gameManager;
 	gameManager = nullptr;

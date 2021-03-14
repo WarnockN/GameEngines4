@@ -20,7 +20,7 @@ struct Vertex {
 
 class Mesh {
 public:
-	Mesh(vector<Vertex>& vertexList_, GLuint shaderProgram_);
+	Mesh(vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_);
 	~Mesh();
 
 	void Render(Camera* camera_, mat4 transform_);
@@ -32,8 +32,8 @@ private:
 	GLuint VAO, VBO;
 	vector<Vertex> vertexList;
 	GLuint shaderProgram;
-	
-	GLuint modelLoc, viewLoc, projLoc;
+	GLuint textureID;
+	GLuint modelLoc, viewLoc, projLoc, textureLoc;
 };
 #endif
 
