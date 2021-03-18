@@ -25,6 +25,13 @@ void Mesh::Render(Camera* camera_, mat4 transform_) {
 
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(camera_->GetPerspective()));
+	glUniform3fv(cameraLoc, 1, value_ptr(camera_->GetPosition()));
+
+	glUniform3fv(lightPosition, 1, value_ptr(camera_->GetLightSources()[0]->GetPosition()));
+	glUniform1f(ambientValue, camera_->GetLightSources()[0]->GetAmbient());
+	glUniform1f(diffuseValue, camera_->GetLightSources()[0]->GetDiffuse());
+	glUniform1f(specularValue, camera_->GetLightSources()[0]->GetSpecular());
+	glUniform3fv(lightColour, 1, value_ptr(camera_->GetLightSources()[0]->GetColour()));
 
 	glBindVertexArray(VAO);
 
@@ -32,7 +39,7 @@ void Mesh::Render(Camera* camera_, mat4 transform_) {
 	glEnable(GL_DEPTH_TEST);
 
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(transform_));
-
+	
 	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
 
 	glBindVertexArray(0);
@@ -45,9 +52,9 @@ void Mesh::GenerateBuffers() {
 
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	
-	/*1. set type of buffer to array buffer 
-	  2. set the size of the array to the number of vertex objects * the byte size  
+
+	/*1. set type of buffer to array buffer
+	  2. set the size of the array to the number of vertex objects * the byte size
 	  3. get the address of the first item in the array -- WE ARE ASSUMING THAT THE VERTEX IS FILLED IN BY DOING THIS. (AN OUT OF RANGE ERROR MAY OCCUR)
 	  4. call static draw. change the data once, but use it multiple times. */
 	glBufferData(GL_ARRAY_BUFFER, vertexList.size() * sizeof(Vertex), &vertexList[0], GL_STATIC_DRAW);
@@ -86,5 +93,12 @@ void Mesh::GenerateBuffers() {
 	viewLoc = glGetUniformLocation(shaderProgram, "view");
 	projLoc = glGetUniformLocation(shaderProgram, "projection");
 	textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
+	cameraLoc - glGetUniformLocation(shaderProgram, "cameraPos");
+
+	lightPosition = glGetUniformLocation(shaderProgram, "light.lightPos");
+	ambientValue = glGetUniformLocation(shaderProgram, "light.ambient");
+	diffuseValue = glGetUniformLocation(shaderProgram, "light.diffuse");
+	specularValue = glGetUniformLocation(shaderProgram, "light.specular");
+	lightColour = glGetUniformLocation(shaderProgram, "light.lightCol");
 }
 

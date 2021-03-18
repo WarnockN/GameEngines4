@@ -33,7 +33,8 @@ private:
 	vector<Vertex> vertexList;
 	GLuint shaderProgram;
 	GLuint textureID;
-	GLuint modelLoc, viewLoc, projLoc, textureLoc;
+	GLuint lightPosition, ambientValue, diffuseValue, specularValue, lightColour;
+	GLuint modelLoc, viewLoc, projLoc, textureLoc, cameraLoc;
 };
 #endif
 

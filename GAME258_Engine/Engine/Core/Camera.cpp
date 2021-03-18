@@ -2,6 +2,8 @@
 
 #include "../Core/Engine.h"
 
+vector<LightSource*> Camera::lightSources = vector<LightSource*>();
+
 Camera::Camera() : position(vec3()), fov(0.0f), forward(vec3()), up(vec3()), right(vec3()), worldUp(vec3()), 
 				   nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f), perspec(mat4()), orthographic(mat4()), view(mat4()) {
 	fov = 45.0f;
@@ -24,7 +26,14 @@ Camera::Camera() : position(vec3()), fov(0.0f), forward(vec3()), up(vec3()), rig
 	UpdateCameraVectors();
 }
 
-Camera::~Camera() {
+Camera::~Camera() { 
+	if (lightSources.size() > 0) {
+		for (auto l : lightSources) {
+			delete l;
+			l = nullptr;
+		}
+		lightSources.clear();
+	}
 }
 
 void Camera::UpdateCameraVectors() {

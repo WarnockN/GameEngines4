@@ -15,6 +15,7 @@ bool GameScene::OnCreate() {
 	
 	Engine::GetInstance()->SetCamera(new Camera());
 	Engine::GetInstance()->GetCamera()->SetPosition(vec3(0.0f, 0.0f, 4.0f));
+	Engine::GetInstance()->GetCamera()->AddLightSources(new LightSource(vec3(0.0, 0.0, 2.0), 0.1f, 0.5f, 0.5f, vec3(1.0f, 0.0f, 1.0f)));
 	TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture", "./Resources/Textures/CheckerboardTexture.png");
 
 	//create our vertex ref and our vertexList ref, make sure to reserve the number of elements that you need
