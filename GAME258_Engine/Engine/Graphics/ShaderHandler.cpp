@@ -54,7 +54,7 @@ void ShaderHandler::CreateProgram(const string& shaderName_, const string& verte
 
         //convert it to a string and throw a debug error message.
         string programString(programLog.begin(), programLog.end());
-        Debug::Error("Erorr linking shader" + shaderName_ + ". Error: \n" + programString, "ShaderHandler.cpp", __LINE__);
+        Debug::Error("Erorr linking shader " + shaderName_ + ". Error: \n" + programString, "ShaderHandler.cpp", __LINE__);
 
         //delete the shdaers and the program
         glDeleteShader(vertexShader);
