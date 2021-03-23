@@ -2,10 +2,10 @@
 
 /*since VOA and VBO are uint, lowest numbers that it can go is 0
 also set our vertex list to an empty vector -- hence enmpty brackets*/
-Mesh::Mesh(vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_) 
-	: VAO(0), VBO(0), vertexList(vector<Vertex>()), shaderProgram(0), textureID(0), modelLoc(0), viewLoc(0), projLoc(0), textureLoc(0) {
-	vertexList = vertexList_;
-	textureID = textureID_;
+Mesh::Mesh(SubMesh& subMesh_, GLuint shaderProgram_) 
+	: VAO(0), VBO(0), vertexList(vector<Vertex>()), shaderProgram(0), textureID(0), modelLoc(0), viewLoc(0), projLoc(0), textureLoc(0), cameraLoc(0), 
+	lightPosition(0), ambientValue(0), diffuseValue(0), specularValue(0), lightColour(0) {
+	subMesh = subMesh_;
 	shaderProgram = shaderProgram_;
 	GenerateBuffers();
 }
@@ -15,34 +15,40 @@ Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
 
-	vertexList.clear();
+	if (subMesh.vertexList.size() > 0) subMesh.vertexList.clear();
+
+	if (subMesh.meshIndices.size() > 0) subMesh.meshIndices.clear();
 }
 
-void Mesh::Render(Camera* camera_, mat4 transform_) {
+void Mesh::Render(Camera* camera_, vector<mat4> instances_) {
 	glUniform1i(textureLoc, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, subMesh.textureID);
 
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(camera_->GetPerspective()));
-	glUniform3fv(cameraLoc, 1, value_ptr(camera_->GetPosition()));
-
-	glUniform3fv(lightPosition, 1, value_ptr(camera_->GetLightSources()[0]->GetPosition()));
-	glUniform1f(ambientValue, camera_->GetLightSources()[0]->GetAmbient());
-	glUniform1f(diffuseValue, camera_->GetLightSources()[0]->GetDiffuse());
-	glUniform1f(specularValue, camera_->GetLightSources()[0]->GetSpecular());
-	glUniform3fv(lightColour, 1, value_ptr(camera_->GetLightSources()[0]->GetColour()));
+	
+	{
+		glUniform3fv(cameraLoc, 1, value_ptr(camera_->GetPosition()));
+		glUniform3fv(lightPosition, 1, value_ptr(camera_->GetLightSources()[0]->GetPosition()));
+		glUniform1f(ambientValue, camera_->GetLightSources()[0]->GetAmbient());
+		glUniform1f(diffuseValue, camera_->GetLightSources()[0]->GetDiffuse());
+		glUniform1f(specularValue, camera_->GetLightSources()[0]->GetSpecular());
+		glUniform3fv(lightColour, 1, value_ptr(camera_->GetLightSources()[0]->GetColour()));
+	}
 
 	glBindVertexArray(VAO);
 
 	//enable depth test, used for rendering. takes z axis into account.
 	glEnable(GL_DEPTH_TEST);
 
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(transform_));
-	
-	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
+	for (int i = 0; i < instances_.size(); i++) { 
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(instances_[i]));
+		glDrawArrays(GL_TRIANGLES, 0, subMesh.vertexList.size());
+	}
 
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Mesh::GenerateBuffers() {
@@ -57,7 +63,7 @@ void Mesh::GenerateBuffers() {
 	  2. set the size of the array to the number of vertex objects * the byte size
 	  3. get the address of the first item in the array -- WE ARE ASSUMING THAT THE VERTEX IS FILLED IN BY DOING THIS. (AN OUT OF RANGE ERROR MAY OCCUR)
 	  4. call static draw. change the data once, but use it multiple times. */
-	glBufferData(GL_ARRAY_BUFFER, vertexList.size() * sizeof(Vertex), &vertexList[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, subMesh.vertexList.size() * sizeof(Vertex), &subMesh.vertexList[0], GL_STATIC_DRAW);
 
 	//POSITION
 	glEnableVertexAttribArray(0);

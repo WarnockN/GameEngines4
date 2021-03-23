@@ -18,12 +18,18 @@ struct Vertex {
 	vec3 colour;
 };
 
+struct SubMesh {
+	vector<Vertex> vertexList;
+	vector<unsigned int> meshIndices;
+	GLuint textureID;
+};
+
 class Mesh {
 public:
-	Mesh(vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_);
+	Mesh(SubMesh& subMesh_, GLuint shaderProgram_);
 	~Mesh();
 
-	void Render(Camera* camera_, mat4 transform_);
+	void Render(Camera* camera_, vector<mat4> instances_);
 
 private:
 	void GenerateBuffers();
@@ -35,6 +41,8 @@ private:
 	GLuint textureID;
 	GLuint lightPosition, ambientValue, diffuseValue, specularValue, lightColour;
 	GLuint modelLoc, viewLoc, projLoc, textureLoc, cameraLoc;
+
+	SubMesh subMesh;
 };
 #endif
 

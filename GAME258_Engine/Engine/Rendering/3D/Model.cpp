@@ -1,13 +1,9 @@
 #include "Model.h"
 
 
-Model::Model(GLuint shaderProgram_, vec3 position_, float angle_, vec3 rotation_, vec3 scale_)
-: meshes(vector<Mesh*>()), shaderProgram(0), position(vec3()), angle(0.0f), rotation(vec3(0.0f, 1.0f, 0.0f)), scaleVar(vec3(1.0f)) {
+Model::Model(const string& objPath_, const string& matPath_, GLuint shaderProgram_)
+: meshes(vector<Mesh*>()), shaderProgram(0), modelInstances(vector<mat4>()) {
 	shaderProgram = shaderProgram_;
-	position = position_;
-	angle = angle_;
-	rotation = rotation_;
-	scaleVar = scale_;
 }
 
 Model::~Model() {
@@ -26,18 +22,35 @@ Model::~Model() {
 void Model::Render(Camera* camera_) {
 	glUseProgram(shaderProgram);
 
-	for (auto m : meshes) m->Render(camera_, GetTransform()); 
+	for (auto m : meshes) m->Render(camera_, modelInstances);
 }
 
 void Model::AddMesh(Mesh* mesh_) {
 	meshes.push_back(mesh_);
 }
 
-mat4 Model::GetTransform() const {
-	mat4 model;
+unsigned int Model::CreateInstance(vec3 position_, float angle_, vec3 rotation_, vec3 scale_) {
+	modelInstances.push_back(CreateTransform(position_, angle_, rotation_, scale_));
+	return modelInstances.size() - 1;
+}
 
-	model = translate(model, position);
-	model = rotate(model, angle, rotation);
-	model = scale(model, scaleVar);
+void Model::UpdateInstance(unsigned int index_, vec3 position_, float angle_, vec3 rotation_, vec3 scale_) {
+	modelInstances[index_] = CreateTransform(position_, angle_, rotation_, scale_);
+}
+
+mat4 Model::GetTransform(unsigned int index_) const
+{
+	return modelInstances[index_];
+}
+
+mat4 Model::CreateTransform(vec3 position_, float angle_, vec3 rotation_, vec3 scale_) const {
+	mat4 model;
+	model = translate(model, position_);
+	model = rotate(model, angle_, rotation_);
+	model = scale(model, scale_);
 	return model;
+}
+
+void Model::LoadModel() {
+
 }
