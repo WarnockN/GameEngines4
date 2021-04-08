@@ -2,8 +2,14 @@
 
 
 Model::Model(const string& objPath_, const string& matPath_, GLuint shaderProgram_)
-: meshes(vector<Mesh*>()), shaderProgram(0), modelInstances(vector<mat4>()) {
+: meshes(vector<Mesh*>()), shaderProgram(0), modelInstances(vector<mat4>()), obj(nullptr) {
 	shaderProgram = shaderProgram_;
+	meshes.reserve(10);
+	modelInstances.reserve(5);
+
+	obj = new OBJLoader();
+	obj->LoadModel(objPath_, matPath_);
+	LoadModel();
 }
 
 Model::~Model() {
@@ -52,5 +58,8 @@ mat4 Model::CreateTransform(vec3 position_, float angle_, vec3 rotation_, vec3 s
 }
 
 void Model::LoadModel() {
+	for (int i = 0; i < obj->GetSubMeshes().size(); i++) { meshes.push_back(new Mesh(obj->GetSubMeshes()[i], shaderProgram)); }
 
+	delete obj;
+	obj = nullptr;
 }

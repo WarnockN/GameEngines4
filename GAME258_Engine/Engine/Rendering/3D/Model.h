@@ -1,9 +1,9 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "Mesh.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <string>
+#include "OBJLoader.h"
 
 using namespace std;
 using namespace glm;
@@ -26,6 +26,7 @@ private:
 	vector<Mesh*> meshes;
 	GLuint shaderProgram;
 	vector<mat4> modelInstances;
+	OBJLoader* obj;
 };
 #endif
 
