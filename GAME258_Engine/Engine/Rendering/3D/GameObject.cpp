@@ -14,8 +14,6 @@ GameObject::GameObject(Model* model_, vec3 position_)
 }
 
 GameObject::~GameObject() {
-	if (model) delete model;
-
 	model = nullptr;
 }
 

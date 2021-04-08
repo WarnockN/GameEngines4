@@ -91,32 +91,6 @@ void OBJLoader::LoadModel(const string& filePath_) {
 		else if (line.substr(0, 2) == "f ") {
 			stringstream f(line.substr(2));
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-			/*unsigned int x, y, z;
-			
-			f >> x >> y >> z;
-
-			if (counter == 0) {
-				indices.push_back(x);
-			}
-			else if (counter == 1) {
-				textureIndices.push_back(y);
-			}
-			else if (counter == 2) {
-				normalIndices.push_back(z);
-			}
-			else {
-				counter = 0;
-			}
-
-			if (f.peek() == '/') {
-				counter++;
-				f.ignore(1, '/');
-			}*/
-
-			
-			
-			
-			
 			char slash;
 			f >> vertexIndex[0] >> slash >> uvIndex[0] >> slash >> normalIndex[0] >>
 				vertexIndex[1] >> slash >> uvIndex[1] >> slash >> normalIndex[1] >>

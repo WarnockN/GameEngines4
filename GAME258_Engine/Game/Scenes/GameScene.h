@@ -16,8 +16,6 @@ public:
 	void Render() override;
 
 private:
-	GameObject* gObject;
-	Model* model;
 };
 #endif
 

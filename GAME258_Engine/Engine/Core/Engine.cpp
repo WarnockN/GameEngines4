@@ -103,6 +103,7 @@ void Engine::Render() {
 void Engine::OnDestroy() {
 	ShaderHandler::GetInstance()->OnDestroy();
 	TextureHandler::GetInstance()->OnDestroy();
+	SceneGraph::GetInstance()->OnDestroy();
 
 	delete gameManager;
 	gameManager = nullptr;

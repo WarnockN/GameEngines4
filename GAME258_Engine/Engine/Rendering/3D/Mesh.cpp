@@ -34,7 +34,6 @@ void Mesh::Render(Camera* camera_, vector<mat4> instances_) {
 		glUniform1f(ambientValue, camera_->GetLightSources()[0]->GetAmbient());
 		glUniform1f(diffuseValue, camera_->GetLightSources()[0]->GetDiffuse());
 		glUniform1f(specularValue, camera_->GetLightSources()[0]->GetSpecular());
-		glUniform3fv(lightColour, 1, value_ptr(camera_->GetLightSources()[0]->GetColour()));
 	}
 
 	glBindVertexArray(VAO);
@@ -86,10 +85,6 @@ void Mesh::GenerateBuffers() {
 	//TEX COORDS
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, textureCoordinates));
-
-	//COLOUR
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, colour));
 
 	//bind the vertex array and the buffer to 0 // close the locker door
 	glBindVertexArray(0);

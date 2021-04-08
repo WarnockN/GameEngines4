@@ -26,12 +26,16 @@ public:
 	void SetAngle(float angle_);
 	inline float GetAngle() const { return angle; }
 
+	inline void SetTag(string tag_) { tag = tag_; }
+	inline string GetTag() const { return tag; }
+
 
 private:
 	Model* model;
 	unsigned int modelInstance;
 	vec3 position, rotation, scaleVar;
 	float angle;
+	string tag;
 };
 #endif
 
