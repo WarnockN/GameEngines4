@@ -91,15 +91,36 @@ void OBJLoader::LoadModel(const string& filePath_) {
 		else if (line.substr(0, 2) == "f ") {
 			stringstream f(line.substr(2));
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
+			/*unsigned int x, y, z;
+			
+			f >> x >> y >> z;
+
+			if (counter == 0) {
+				indices.push_back(x);
+			}
+			else if (counter == 1) {
+				textureIndices.push_back(y);
+			}
+			else if (counter == 2) {
+				normalIndices.push_back(z);
+			}
+			else {
+				counter = 0;
+			}
+
+			if (f.peek() == '/') {
+				counter++;
+				f.ignore(1, '/');
+			}*/
+
 			
 			
 			
 			
-			
-			/*char slashes[6];
-			f >> vertexIndex[0] >> slashes[0] >> uvIndex[0] >> slashes[1] >> normalIndex[0] >>
-				vertexIndex[1] >> slashes[2] >> uvIndex[1] >> slashes[3] >> normalIndex[1] >>
-				vertexIndex[2] >> slashes[4] >> uvIndex[2] >> slashes[5] >> normalIndex[2];
+			char slash;
+			f >> vertexIndex[0] >> slash >> uvIndex[0] >> slash >> normalIndex[0] >>
+				vertexIndex[1] >> slash >> uvIndex[1] >> slash >> normalIndex[1] >>
+				vertexIndex[2] >> slash >> uvIndex[2] >> slash >> normalIndex[2];
 			indices.push_back(vertexIndex[0]);
 			indices.push_back(vertexIndex[1]);
 			indices.push_back(vertexIndex[2]);
@@ -108,7 +129,7 @@ void OBJLoader::LoadModel(const string& filePath_) {
 			textureIndices.push_back(uvIndex[2]);
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
-			normalIndices.push_back(normalIndex[2]);*/
+			normalIndices.push_back(normalIndex[2]);
 		}
 		
 		//new mesh
