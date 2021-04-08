@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "../../Core/Camera.h"
+#include "../../Graphics/MaterialHandler.h"
 
 using namespace glm;
 using namespace std;
@@ -20,7 +21,7 @@ struct Vertex {
 struct SubMesh {
 	vector<Vertex> vertexList;
 	vector<unsigned int> meshIndices;
-	GLuint textureID;
+	Material material;
 };
 
 class Mesh {

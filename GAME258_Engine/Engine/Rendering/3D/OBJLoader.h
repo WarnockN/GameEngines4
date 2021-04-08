@@ -4,6 +4,7 @@
 #include <sstream>
 #include "Mesh.h"
 #include "../../Graphics/TextureHandler.h"
+#include "../../FX/MaterialLoader.h"
 
 using namespace std;
 using namespace glm;
@@ -28,7 +29,7 @@ private:
 	vector<unsigned int> indices, normalIndices, textureIndices;
 	vector<Vertex> meshVerticies;
 	vector<SubMesh> subMeshes;
-	GLuint currentTexture;
+	Material currentMaterial;
 };
 #endif
 

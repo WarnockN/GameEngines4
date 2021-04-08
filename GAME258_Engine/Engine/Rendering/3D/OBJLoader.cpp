@@ -1,7 +1,7 @@
 #include "OBJLoader.h"
 
 OBJLoader::OBJLoader() : verticies(vector<vec3>()), normals(vector<vec3>()), textureCoords(vector<vec2>()), indices(vector<unsigned int>()), normalIndices(vector<unsigned int>()), 
-textureIndices(vector<unsigned int>()), meshVerticies(vector<Vertex>()), subMeshes(vector<SubMesh>()), currentTexture(0) {
+textureIndices(vector<unsigned int>()), meshVerticies(vector<Vertex>()), subMeshes(vector<SubMesh>()), currentMaterial(Material()) {
 	verticies.reserve(200);
 	normals.reserve(200);
 	textureCoords.reserve(200);
@@ -40,7 +40,7 @@ void OBJLoader::PostProcessing() {
 	SubMesh mesh;
 	mesh.vertexList = meshVerticies;
 	mesh.meshIndices = indices;
-	mesh.textureID = currentTexture;
+	mesh.material = currentMaterial;
 
 	subMeshes.push_back(mesh);
 
@@ -49,7 +49,7 @@ void OBJLoader::PostProcessing() {
 	textureIndices.clear();
 	meshVerticies.clear();
 
-	currentTexture = 0;
+	currentMaterial = Material();
 }
 
 void OBJLoader::LoadModel(const string& filePath_) {
@@ -92,9 +92,11 @@ void OBJLoader::LoadModel(const string& filePath_) {
 			stringstream f(line.substr(2));
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 			char slash;
+
 			f >> vertexIndex[0] >> slash >> uvIndex[0] >> slash >> normalIndex[0] >>
 				vertexIndex[1] >> slash >> uvIndex[1] >> slash >> normalIndex[1] >>
 				vertexIndex[2] >> slash >> uvIndex[2] >> slash >> normalIndex[2];
+			
 			indices.push_back(vertexIndex[0]);
 			indices.push_back(vertexIndex[1]);
 			indices.push_back(vertexIndex[2]);
@@ -116,34 +118,9 @@ void OBJLoader::LoadModel(const string& filePath_) {
 }
 
 void OBJLoader::LoadMaterial(const string& matName_) {
-	//set currTexture
-	currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
-
-	/*if texturehandler doesnt have texture
-	1. create the texture
-	2. set currTexture to the newly created texture*/
-	if (currentTexture == 0) {
-		TextureHandler::GetInstance()->CreateTexture(matName_, "Resources/Textures/" + matName_ + ".png");
-		currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
-	}
+	currentMaterial = MaterialHandler::GetInstance()->GetMaterial(matName_);
 }
 
 void OBJLoader::LoadMaterialLibrary(const string& matFilePath_) {
-	//open mtl file
-	ifstream in(matFilePath_.c_str(), ios::in);
-
-	//check if open
-	if (!in) Debug::Error("Cannot open MTL file: " + matFilePath_, "OBJLoader.cpp", __LINE__);
-
-	/*read through file
-	1. create line string
-	2. use getline func to get file and specifc line
-	3. if substring is newmtl we found the line we are looking for.
-	4. once we have found, load the material with the name starting at substring 7, which is the start of the texture name*/
-	string line;
-	while (getline(in, line)) {
-		if (line.substr(0, 7) == "newmtl ") {
-			LoadMaterial(line.substr(7));
-		}
-	}
+	MaterialLoader::LoadMaterial(matFilePath_);
 }

@@ -11,6 +11,7 @@
 #include "../Graphics/ShaderHandler.h"
 #include "../Graphics/TextureHandler.h"
 #include "../Rendering/SceneGraph.h"
+#include "../Graphics/MaterialHandler.h"
 #include "Camera.h"
 
 

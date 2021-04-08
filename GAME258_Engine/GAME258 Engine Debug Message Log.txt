@@ -2,3 +2,6 @@
 [INFO]: Sart Scene. in: StartScene.cpp on line: 10
 [INFO]: OnCreate initialized correctly. in: Engine.cpp on line: 46
 [INFO]: Game Scene created. in: GameScene.cpp on line: 11
+[ERROR]: Surface for texture Apple_Stem failed to be created in: TextureHandler.cpp on line: 38
+[ERROR]: Surface for texture Apple_Body failed to be created in: TextureHandler.cpp on line: 38
+[ERROR]: Surface for texture diceTexture failed to be created in: TextureHandler.cpp on line: 38

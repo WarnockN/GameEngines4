@@ -23,7 +23,7 @@ Mesh::~Mesh() {
 void Mesh::Render(Camera* camera_, vector<mat4> instances_) {
 	glUniform1i(textureLoc, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, subMesh.textureID);
+	glBindTexture(GL_TEXTURE_2D, subMesh.material.diffuseMap);
 
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(camera_->GetPerspective()));
