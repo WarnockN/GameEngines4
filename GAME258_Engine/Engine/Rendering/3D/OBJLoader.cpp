@@ -89,10 +89,15 @@ void OBJLoader::LoadModel(const string& filePath_) {
 
 		//face data
 		else if (line.substr(0, 2) == "f ") {
+			stringstream f(line.substr(2));
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-			char slashes[6];
-			stringstream v(line.substr(2));
-			v >> vertexIndex[0] >> slashes[0] >> uvIndex[0] >> slashes[1] >> normalIndex[0] >>
+			
+			
+			
+			
+			
+			/*char slashes[6];
+			f >> vertexIndex[0] >> slashes[0] >> uvIndex[0] >> slashes[1] >> normalIndex[0] >>
 				vertexIndex[1] >> slashes[2] >> uvIndex[1] >> slashes[3] >> normalIndex[1] >>
 				vertexIndex[2] >> slashes[4] >> uvIndex[2] >> slashes[5] >> normalIndex[2];
 			indices.push_back(vertexIndex[0]);
@@ -103,13 +108,7 @@ void OBJLoader::LoadModel(const string& filePath_) {
 			textureIndices.push_back(uvIndex[2]);
 			normalIndices.push_back(normalIndex[0]);
 			normalIndices.push_back(normalIndex[1]);
-			normalIndices.push_back(normalIndex[2]);
-
-			//stringstream f(line.substr(2));
-
-			////f >> vertexIndex[0] >> uvIndex[0] >> normalIndex[0] >> vertexIndex[1] >> uvIndex[1] >> normalIndex[1] >> vertexIndex[2] >> uvIndex[2] >> normalIndex[2)
-			
-
+			normalIndices.push_back(normalIndex[2]);*/
 		}
 		
 		//new mesh
