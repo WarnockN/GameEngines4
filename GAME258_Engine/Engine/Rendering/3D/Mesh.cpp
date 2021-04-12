@@ -21,7 +21,6 @@ Mesh::~Mesh() {
 }
 
 void Mesh::Render(Camera* camera_, vector<mat4> instances_) {
-	//glUniform1i(textureLoc, 0);
 	glUniform1i(diffuseMap, 0);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, subMesh.material.diffuseMap);
@@ -35,6 +34,7 @@ void Mesh::Render(Camera* camera_, vector<mat4> instances_) {
 		glUniform1f(ambientValue, camera_->GetLightSources()[0]->GetAmbient());
 		glUniform1f(diffuseValue, camera_->GetLightSources()[0]->GetDiffuse());
 		glUniform1f(specularValue, camera_->GetLightSources()[0]->GetSpecular());
+		glUniform3fv(lightColour, 1, value_ptr(camera_->GetLightSources()[0]->GetColour()));
 	}
 	{
 		glUniform1f(shininessValue, subMesh.material.shininess);
@@ -101,7 +101,7 @@ void Mesh::GenerateBuffers() {
 	modelLoc = glGetUniformLocation(shaderProgram, "model");
 	viewLoc = glGetUniformLocation(shaderProgram, "view");
 	projLoc = glGetUniformLocation(shaderProgram, "projection");
-	cameraLoc - glGetUniformLocation(shaderProgram, "cameraPos");
+	cameraLoc = glGetUniformLocation(shaderProgram, "cameraPos");
 
 	lightPosition = glGetUniformLocation(shaderProgram, "light.lightPos");
 	ambientValue = glGetUniformLocation(shaderProgram, "light.ambient");
