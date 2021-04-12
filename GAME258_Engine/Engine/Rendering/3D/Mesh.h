@@ -40,7 +40,9 @@ private:
 	GLuint shaderProgram;
 	GLuint textureID;
 	GLuint lightPosition, ambientValue, diffuseValue, specularValue, lightColour;
-	GLuint modelLoc, viewLoc, projLoc, textureLoc, cameraLoc;
+	GLuint modelLoc, viewLoc, projLoc, cameraLoc;
+
+	GLuint diffuseMap, shininessValue, transparencyValue, matAmbientValue, matDiffuseValue, matSpecularValue;
 
 	SubMesh subMesh;
 };

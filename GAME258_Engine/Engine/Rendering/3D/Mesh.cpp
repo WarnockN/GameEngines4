@@ -3,7 +3,7 @@
 /*since VOA and VBO are uint, lowest numbers that it can go is 0
 also set our vertex list to an empty vector -- hence enmpty brackets*/
 Mesh::Mesh(SubMesh& subMesh_, GLuint shaderProgram_) 
-	: VAO(0), VBO(0), vertexList(vector<Vertex>()), shaderProgram(0), textureID(0), modelLoc(0), viewLoc(0), projLoc(0), textureLoc(0), cameraLoc(0), 
+	: VAO(0), VBO(0), vertexList(vector<Vertex>()), shaderProgram(0), textureID(0), modelLoc(0), viewLoc(0), projLoc(0), diffuseMap(0), cameraLoc(0), 
 	lightPosition(0), ambientValue(0), diffuseValue(0), specularValue(0), lightColour(0) {
 	subMesh = subMesh_;
 	shaderProgram = shaderProgram_;
@@ -21,7 +21,8 @@ Mesh::~Mesh() {
 }
 
 void Mesh::Render(Camera* camera_, vector<mat4> instances_) {
-	glUniform1i(textureLoc, 0);
+	//glUniform1i(textureLoc, 0);
+	glUniform1i(diffuseMap, 0);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, subMesh.material.diffuseMap);
 
@@ -34,6 +35,13 @@ void Mesh::Render(Camera* camera_, vector<mat4> instances_) {
 		glUniform1f(ambientValue, camera_->GetLightSources()[0]->GetAmbient());
 		glUniform1f(diffuseValue, camera_->GetLightSources()[0]->GetDiffuse());
 		glUniform1f(specularValue, camera_->GetLightSources()[0]->GetSpecular());
+	}
+	{
+		glUniform1f(shininessValue, subMesh.material.shininess);
+		glUniform1f(transparencyValue, subMesh.material.transparency);
+		glUniform3fv(matAmbientValue, 1, value_ptr(subMesh.material.ambient));
+		glUniform3fv(matDiffuseValue, 1, value_ptr(subMesh.material.diffuse));
+		glUniform3fv(matSpecularValue, 1, value_ptr(subMesh.material.specular));
 	}
 
 	glBindVertexArray(VAO);
@@ -93,7 +101,6 @@ void Mesh::GenerateBuffers() {
 	modelLoc = glGetUniformLocation(shaderProgram, "model");
 	viewLoc = glGetUniformLocation(shaderProgram, "view");
 	projLoc = glGetUniformLocation(shaderProgram, "projection");
-	textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
 	cameraLoc - glGetUniformLocation(shaderProgram, "cameraPos");
 
 	lightPosition = glGetUniformLocation(shaderProgram, "light.lightPos");
@@ -101,5 +108,12 @@ void Mesh::GenerateBuffers() {
 	diffuseValue = glGetUniformLocation(shaderProgram, "light.diffuse");
 	specularValue = glGetUniformLocation(shaderProgram, "light.specular");
 	lightColour = glGetUniformLocation(shaderProgram, "light.lightCol");
+
+	diffuseMap = glGetUniformLocation(shaderProgram, "material.diffuseMap");
+	shininessValue = glGetUniformLocation(shaderProgram, "material.shininess");
+	transparencyValue = glGetUniformLocation(shaderProgram, "material.transparency");
+	matAmbientValue = glGetUniformLocation(shaderProgram, "material.ambient");
+	matDiffuseValue = glGetUniformLocation(shaderProgram, "material.diffuse");
+	matSpecularValue = glGetUniformLocation(shaderProgram, "material.specular");
 }
 

@@ -22,6 +22,47 @@ void MaterialLoader::LoadMaterial(string filePath_) {
 			}
 			matName = line.substr(7);
 			m.diffuseMap = LoadTexture(matName);
+			m.name = matName;
+		}
+
+		//shininess
+		else if (line.substr(4, 7) == "Ns ") {
+			stringstream ns(line.substr(7));
+			float shine;
+			ns >> shine;
+			m.shininess = shine;
+		}
+
+		//transparency
+		else if (line.substr(4, 6) == "d ") {
+			stringstream tr(line.substr(6));
+			float trans;
+			tr >> trans;
+			m.transparency = trans;
+		}
+
+		//ambient
+		else if (line.substr(4, 7) == "Ka ") {
+			stringstream ka(line.substr(7));
+			float x, y, z;
+			ka >> x >> y >> z;
+			m.ambient = vec3(x, y, z);
+		}
+		
+		//diffuse
+		else if (line.substr(4, 7) == "Kd ") {
+			stringstream kd(line.substr(7));
+			float x, y, z;
+			kd >> x >> y >> z;
+			m.diffuse = vec3(x, y, z);
+		}
+		
+		//specular
+		else if (line.substr(4, 7) == "Ks ") {
+			stringstream ks(line.substr(7));
+			float x, y, z;
+			ks >> x >> y >> z;
+			m.specular = vec3(x, y, z);
 		}
 	}
 
