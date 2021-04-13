@@ -7,8 +7,7 @@ using namespace glm;
 
 class GameObject {
 public:
-	GameObject(Model* model_);
-	GameObject(Model* model_, vec3 position_);
+	GameObject(Model* model_, vec3 position_ = vec3());
 	~GameObject();
 
 	void Update(const float deltaTime_);
@@ -29,6 +28,8 @@ public:
 	inline void SetTag(string tag_) { tag = tag_; }
 	inline string GetTag() const { return tag; }
 
+	inline BoundingBox GetBoundingBox() const { return boundingBox; }
+
 
 private:
 	Model* model;
@@ -36,6 +37,8 @@ private:
 	vec3 position, rotation, scaleVar;
 	float angle;
 	string tag;
+
+	BoundingBox boundingBox;
 };
 #endif
 

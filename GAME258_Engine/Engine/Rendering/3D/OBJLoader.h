@@ -4,6 +4,7 @@
 #include <sstream>
 #include "Mesh.h"
 #include "../../FX/MaterialLoader.h"
+#include "../../Math/BoundingBox.h"
 
 using namespace std;
 using namespace glm;
@@ -15,6 +16,8 @@ public:
 
 	void LoadModel(const string& objFilePath_, const string& mtFilePath_);
 	inline vector<SubMesh> GetSubMeshes() { return subMeshes; }
+
+	inline BoundingBox GetBoundingBox() const { return boundingBox; }
 
 private:
 	void PostProcessing();
@@ -30,6 +33,8 @@ private:
 	vector<SubMesh> subMeshes;
 
 	Material currentMaterial;
+
+	BoundingBox boundingBox;
 };
 #endif
 
