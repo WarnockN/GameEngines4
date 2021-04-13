@@ -13,7 +13,7 @@ bool StartScene::OnCreate() {
 }
 
 void StartScene::Update(const float deltaTime_) {
-	if (SDL_PollEvent(&event)) {
+	/*if (SDL_PollEvent(&event)) {
 		switch (event.key.keysym.sym) {
 		case SDLK_1:
 			Engine::GetInstance()->SetCurrentScene(1);
@@ -21,7 +21,9 @@ void StartScene::Update(const float deltaTime_) {
 		default:
 			break;
 		}
-	}
+	}*/
+
+	Engine::GetInstance()->SetCurrentScene(1);
 }
 
 void StartScene::Render() {

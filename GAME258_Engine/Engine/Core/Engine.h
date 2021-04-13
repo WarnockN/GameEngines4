@@ -7,13 +7,17 @@
 #include "Debug.h"
 #include "GameManager.h"
 #include "Scene.h"
+
 #include "../Rendering/3D/GameObject.h"
+#include "../Rendering/SceneGraph.h"
+
 #include "../Graphics/ShaderHandler.h"
 #include "../Graphics/TextureHandler.h"
-#include "../Rendering/SceneGraph.h"
 #include "../Graphics/MaterialHandler.h"
+
 #include "Camera.h"
 
+#include "../Events/EventListener.h"
 
 using namespace std;
 
@@ -51,6 +55,11 @@ public:
 
 	inline Camera* GetCamera() const { return camera; }
 	inline void SetCamera(Camera* camera_) { camera = camera_; }
+
+	void NotifyMousePressed(ivec2 mouse_, int buttonType_);
+	void NotifyMouseReleased(ivec2 mouse_, int buttonType_);
+	void NotifyMouseMove(ivec2 mouse_);
+	void NotifyMouseScroll(int y_);
 
 private:
 	Engine();

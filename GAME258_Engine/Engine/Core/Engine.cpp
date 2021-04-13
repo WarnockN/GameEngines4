@@ -3,6 +3,8 @@
 //SHAKED SAYS: always make sure to redeclare any static variables at the top of the class!
 unique_ptr<Engine> Engine::engineInstance = nullptr;
 
+
+
 Engine::Engine() : window(nullptr), isRunning(false), fps(60), gameManager(nullptr), currentSceneNum(0) {}
 
 Engine::~Engine() {}
@@ -28,6 +30,10 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 		OnDestroy();
 		return isRunning = false;
 	}
+
+	SDL_WarpMouseInWindow(window->GetWindow(), window->GetHeight() / 2, window->GetWidth() / 2);
+
+	MouseEventListener::RegisterEngineObject(this);
 
 	ShaderHandler::GetInstance()->CreateProgram("colourShader", "Engine/Shaders/ColourVertexShader.glsl", "Engine/Shaders/ColourFragmentShader.glsl");
 
@@ -58,6 +64,9 @@ void Engine::Run() {
 		//update our previous and current ticks
 		timer.UpdateFrameTicks();
 		
+		//update event listener
+		EventListener::Update();
+
 		//update -- this number is 60FPS
 		Update(timer.GetDeltaTime());
 		Render();
@@ -117,4 +126,20 @@ void Engine::OnDestroy() {
 
 	SDL_Quit();
 	exit(0);
+}
+
+void Engine::NotifyMousePressed(ivec2 mouse_, int buttonType_) {
+	
+}
+
+void Engine::NotifyMouseReleased(ivec2 mouse_, int buttonType_) {
+
+}
+
+void Engine::NotifyMouseMove(ivec2 mouse_) {
+	if (camera) camera->ProcessMouseMovement(MouseEventListener::GetMouseOffset());
+}
+
+void Engine::NotifyMouseScroll(int y_) {
+	if (camera) camera->ProcessMouseZoom(y_);
 }

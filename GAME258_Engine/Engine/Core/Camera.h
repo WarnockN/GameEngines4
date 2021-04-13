@@ -30,6 +30,9 @@ public:
 	inline void AddLightSources(LightSource* source_) { lightSources.push_back(source_); }
 	inline vector<LightSource*> GetLightSources() const { return lightSources; }
 
+	void ProcessMouseMovement(vec2 offset_);
+	void ProcessMouseZoom(int y_);
+
 private:
 	void UpdateCameraVectors();
 	vec3 position;

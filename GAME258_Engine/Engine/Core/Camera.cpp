@@ -46,3 +46,25 @@ void Camera::UpdateCameraVectors() {
 	up = normalize(cross(right, forward));
 	view = lookAt(position, position + forward, up);
 }
+
+void Camera::ProcessMouseMovement(vec2 offset_) {
+	offset_ *= 0.05f;
+
+	yaw += offset_.x;
+	pitch += offset_.y;
+
+	if (pitch > 89.0f) pitch = 89.0f;
+	if (pitch < -89.0f) pitch = -89.0f;
+
+	if (yaw < 0.0f) yaw += 0.0f;
+	if (yaw > 360.0f) yaw -= 360.0f;
+
+	UpdateCameraVectors();
+
+}
+
+void Camera::ProcessMouseZoom(int y_) {
+	if (y_ < 0 || y_ > 0) position += static_cast<float>(y_) * (forward * 2.0f);
+	
+	UpdateCameraVectors();
+}

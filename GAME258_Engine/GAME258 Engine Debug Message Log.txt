@@ -1,4 +1,4 @@
 [INFO]: OpenGL version: 4.5.0 NVIDIA 465.89 in: Window.cpp on line: 65
 [INFO]: Sart Scene. in: StartScene.cpp on line: 10
-[INFO]: OnCreate initialized correctly. in: Engine.cpp on line: 46
+[INFO]: OnCreate initialized correctly. in: Engine.cpp on line: 52
 [INFO]: Game Scene created. in: GameScene.cpp on line: 11
