@@ -12,14 +12,8 @@ void EventListener::Update() {
 
 		switch (sdlEvent.type) {
 		case SDL_MOUSEBUTTONDOWN:
-			break;
-		
 		case SDL_MOUSEBUTTONUP:
-			break;
-		
 		case SDL_MOUSEMOTION:
-			break;
-		
 		case SDL_MOUSEWHEEL:
 			MouseEventListener::Update(sdlEvent);
 			break;
