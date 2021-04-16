@@ -18,6 +18,8 @@ void EventListener::Update() {
 			MouseEventListener::Update(sdlEvent);
 			break;
 		
+		//case SDL_BUTTON(SDL_BUTTON_MIDDLE):
+			
 		default:
 			break;
 		}

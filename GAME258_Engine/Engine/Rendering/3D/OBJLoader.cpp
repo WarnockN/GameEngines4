@@ -53,7 +53,6 @@ void OBJLoader::PostProcessing() {
 }
 
 void OBJLoader::LoadModel(const string& filePath_) {
-	int counter = 0;
 	ifstream in(filePath_.c_str(), ios::in);
 	if (!in) {
 		Debug::Error("Cannot open OBJ file: " + filePath_, "OBJLoader.cpp", __LINE__);
