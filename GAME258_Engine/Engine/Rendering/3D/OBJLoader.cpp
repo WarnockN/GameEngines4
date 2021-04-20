@@ -67,6 +67,15 @@ void OBJLoader::LoadModel(const string& filePath_) {
 			stringstream v(line.substr(2));
 			float x, y, z;
 			v >> x >> y >> z;
+			
+			if (boundingBox.maxVert.x < x) boundingBox.maxVert.x = x;
+			if (boundingBox.maxVert.y < y) boundingBox.maxVert.y = y;
+			if (boundingBox.maxVert.z < z) boundingBox.maxVert.z = z;
+
+			if (boundingBox.minVert.x > x) boundingBox.minVert.x = x;
+			if (boundingBox.minVert.y > y) boundingBox.minVert.y = y;
+			if (boundingBox.minVert.z > z) boundingBox.minVert.z = z;
+
 			verticies.push_back(vec3(x, y, z));
 		}
 
