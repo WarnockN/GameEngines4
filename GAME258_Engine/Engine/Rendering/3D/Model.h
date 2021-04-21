@@ -32,6 +32,8 @@ private:
 	OBJLoader* obj;
 
 	BoundingBox boundingBox;
+
+	
 };
 #endif
 

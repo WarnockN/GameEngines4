@@ -9,6 +9,15 @@
 using namespace glm;
 using namespace std;
 
+enum Plane {
+	PLANE_BACK,
+	PLANE_FRONT,
+	PLANE_LEFT,
+	PLANE_RIGHT,
+	PLANE_TOP,
+	PLANE_BOTTOM
+};
+
 class Camera {
 public:
 	Camera();
@@ -32,6 +41,8 @@ public:
 
 	void ProcessMouseMovement(vec2 offset_);
 	void ProcessMouseZoom(int y_);
+
+	vec4* ExtractFrustumPlanes();
 
 private:
 	void UpdateCameraVectors();

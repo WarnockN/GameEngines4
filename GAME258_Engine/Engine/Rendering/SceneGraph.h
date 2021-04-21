@@ -22,6 +22,8 @@ public:
 
 	void Update(const float deltaTime_);
 	void Render(Camera* camera_);
+
+	
 private:
 	SceneGraph();
 	~SceneGraph();

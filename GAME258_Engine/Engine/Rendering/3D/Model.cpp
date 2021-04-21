@@ -65,3 +65,4 @@ void Model::LoadModel() {
 	delete obj;
 	obj = nullptr;
 }
+
