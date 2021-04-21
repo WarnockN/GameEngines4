@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 GameObject::GameObject(Model* model_, vec3 position_) 
-	: model(nullptr), position(vec3()), rotation(vec3(0.0f, 1.0f, 0.0f)), scaleVar(vec3(1.0f)), angle(0.0f), modelInstance(0) {
+	: model(nullptr), position(vec3()), rotation(vec3(0.0f, 1.0f, 0.0f)), scaleVar(vec3(1.0f)), angle(0.0f), modelInstance(0), hit(false) {
 	model = model_;
 	position = position_;
 	if (model) {

@@ -92,6 +92,7 @@ void SceneGraph::AddGameObject(GameObject* gObject_, string tag_) {
 		gObject_->SetTag(newTag);
 		sceneGameObjects[newTag] = gObject_;
 	}
+	CollisionHandler::GetInstance()->AddObject(gObject_);
 }
 
 GameObject* SceneGraph::GetGameObject(string tag_)

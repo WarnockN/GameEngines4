@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/string_cast.hpp>
+#include "../Core/Camera.h"
 
 using namespace glm;
 

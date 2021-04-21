@@ -35,6 +35,8 @@ public:
 	inline mat4 GetView() const { return view; }
 	inline mat4 GetPerspective() const { return perspec; }
 	inline mat4 GetOrthograpic() const { return orthographic; }
+	inline float GetNearPlane() const { return nearPlane; }
+	inline float GetFarPlane() const { return farPlane; }
 
 	inline void AddLightSources(LightSource* source_) { lightSources.push_back(source_); }
 	inline vector<LightSource*> GetLightSources() const { return lightSources; }

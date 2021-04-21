@@ -22,6 +22,8 @@ public:
 	inline GLuint GetShaderProgram() const { return shaderProgram; }
 	inline BoundingBox GetBoundingBox() const { return boundingBox; }
 
+	
+
 private:
 	mat4 CreateTransform(vec3 position_, float angle_, vec3 rotation_, vec3 scale_) const;
 	void LoadModel();

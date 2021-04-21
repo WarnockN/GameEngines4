@@ -30,6 +30,11 @@ public:
 
 	inline BoundingBox GetBoundingBox() const { return boundingBox; }
 
+	inline void SetHit(bool hit_, int buttonType_) { hit = hit_;
+													 if (hit) cout << tag << " was hit" << endl; }
+
+	inline bool GetHit() const { return hit; }
+
 
 private:
 	Model* model;
@@ -39,6 +44,8 @@ private:
 	string tag;
 
 	BoundingBox boundingBox;
+
+	bool hit;
 };
 #endif
 

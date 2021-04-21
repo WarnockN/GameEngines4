@@ -14,6 +14,8 @@ bool GameScene::OnCreate() {
 	Engine::GetInstance()->GetCamera()->SetPosition(vec3(0.0f, 0.0f, 4.0f));
 	Engine::GetInstance()->GetCamera()->AddLightSources(new LightSource(vec3(0.0, 0.0, 2.0), 0.1f, 0.5f, 0.5f, vec3(1.0f, 1.0f, 1.0f)));
 
+	CollisionHandler::GetInstance()->OnCreate();
+
 	//create our model ref and add the mesh to our new model
 	Model* appleModel = new Model("Resources/Models/Apple.obj", "Resources/Materials/Apple.mtl", ShaderHandler::GetInstance()->GetShader("basicShader"));
 

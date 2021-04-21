@@ -114,6 +114,7 @@ void Engine::OnDestroy() {
 	TextureHandler::GetInstance()->OnDestroy();
 	SceneGraph::GetInstance()->OnDestroy();
 	MaterialHandler::GetInstance()->OnDestroy();
+	CollisionHandler::GetInstance()->OnDestroy();
 
 	delete gameManager;
 	gameManager = nullptr;
@@ -133,7 +134,7 @@ void Engine::NotifyMousePressed(ivec2 mouse_, int buttonType_) {
 }
 
 void Engine::NotifyMouseReleased(ivec2 mouse_, int buttonType_) {
-
+	CollisionHandler::GetInstance()->MouseUpdate(mouse_, buttonType_);
 }
 
 void Engine::NotifyMouseMove(ivec2 mouse_) {
