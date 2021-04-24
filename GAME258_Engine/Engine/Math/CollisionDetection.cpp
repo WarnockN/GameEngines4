@@ -45,18 +45,14 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 
 	//X AXIS
 	vec3 xAxis(modelMatrix[0].x, modelMatrix[0].y, modelMatrix[0].z);
-	float dotDelta = dot(xAxis, delta);
+	float dotDelta = dot(delta, xAxis);
 	float dotDir = dot(rayDir, xAxis);
 
 	if (fabs(dotDir) > 0.001f) {
 		float t1 = (dotDelta + boxMin.x) / dotDir;
 		float t2 = (dotDelta / boxMax.x) / dotDir;
 
-		if (t1 > t2) {
-			float w = t1;
-			t1 = t2;
-			t2 = w;
-		}
+		if (t1 > t2) swap(t1, t2);
 
 		if (t2 < tMax) tMax = t2;
 
@@ -70,18 +66,14 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 
 	//Y AXIS
 	vec3 yAxis(modelMatrix[1].x, modelMatrix[1].y, modelMatrix[1].z);
-	float dotDeltaY = dot(yAxis, delta);
+	float dotDeltaY = dot(delta, yAxis);
 	float dotDirY = dot(rayDir, yAxis);
 
 	if (fabs(dotDirY) > 0.001f) {
 		float t1 = (dotDeltaY + boxMin.y) / dotDirY;
 		float t2 = (dotDeltaY / boxMax.y) / dotDirY;
 
-		if (t1 > t2) {
-			float w = t1;
-			t1 = t2;
-			t2 = w;
-		}
+		if (t1 > t2) swap(t1, t2);
 
 		if (t2 < tMax) tMax = t2;
 
@@ -95,18 +87,14 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 
 	//Z AXIS
 	vec3 zAxis(modelMatrix[2].x, modelMatrix[2].y, modelMatrix[2].z);
-	float dotDeltaZ = dot(zAxis, delta);
+	float dotDeltaZ = dot(delta, zAxis);
 	float dotDirZ = dot(rayDir, zAxis);
 
 	if (fabs(dotDirZ) > 0.001f) {
-		float t1 = (dotDeltaZ + boxMin.z) / dotDirZ;
-		float t2 = (dotDeltaZ / boxMax.z) / dotDirZ;
+		float t1 = (dotDeltaZ + boxMin.y) / dotDirZ;
+		float t2 = (dotDeltaZ / boxMax.y) / dotDirZ;
 
-		if (t1 > t2) {
-			float w = t1;
-			t1 = t2;
-			t2 = w;
-		}
+		if (t1 > t2) swap(t1, t2);
 
 		if (t2 < tMax) tMax = t2;
 
@@ -117,7 +105,7 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 	else {
 		if (-dotDeltaZ + boxMin.z > 0.0f || -dotDeltaZ + boxMax.z < 0.0f) return false;
 	}
-
+	
 	ray_->intersectionDist = tMin;
 	return true;
 }
