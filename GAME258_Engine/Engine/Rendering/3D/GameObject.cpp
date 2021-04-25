@@ -46,7 +46,10 @@ void GameObject::SetScale(vec3 scaleVar_) {
 	if (model) {
 		model->UpdateInstance(modelInstance, position, angle, rotation, scaleVar);
 		boundingBox.transform = model->GetTransform(modelInstance);
+		boundingBox.minVert *= scaleVar.x > 1.0f ? scaleVar : (scaleVar / 2.0f);
+		boundingBox.maxVert *= scaleVar.x > 1.0f ? scaleVar : (scaleVar / 2.0f);
 	}
+	
 }
 
 void GameObject::SetAngle(float angle_) {
@@ -54,7 +57,5 @@ void GameObject::SetAngle(float angle_) {
 	if (model) {
 		model->UpdateInstance(modelInstance, position, angle, rotation, scaleVar);
 		boundingBox.transform = model->GetTransform(modelInstance);
-		boundingBox.minVert *= scaleVar.x > 1.0f ? scaleVar : (scaleVar / 2.0f);
-		boundingBox.maxVert *= scaleVar.x > 1.0f ? scaleVar : (scaleVar / 2.0f);
 	}
 }

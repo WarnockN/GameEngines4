@@ -31,7 +31,7 @@ bool Engine::OnCreate(string name_, int width_, int height_) {
 		return isRunning = false;
 	}
 
-	SDL_WarpMouseInWindow(window->GetWindow(), window->GetHeight() / 2, window->GetWidth() / 2);
+	SDL_WarpMouseInWindow(window->GetWindow(), window->GetWidth() / 2, window->GetHeight() / 2);
 
 	MouseEventListener::RegisterEngineObject(this);
 

@@ -50,7 +50,7 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 
 	if (fabs(dotDir) > 0.001f) {
 		float t1 = (dotDelta + boxMin.x) / dotDir;
-		float t2 = (dotDelta / boxMax.x) / dotDir;
+		float t2 = (dotDelta + boxMax.x) / dotDir;
 
 		if (t1 > t2) swap(t1, t2);
 
@@ -71,7 +71,7 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 
 	if (fabs(dotDirY) > 0.001f) {
 		float t1 = (dotDeltaY + boxMin.y) / dotDirY;
-		float t2 = (dotDeltaY / boxMax.y) / dotDirY;
+		float t2 = (dotDeltaY + boxMax.y) / dotDirY;
 
 		if (t1 > t2) swap(t1, t2);
 
@@ -92,7 +92,7 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 
 	if (fabs(dotDirZ) > 0.001f) {
 		float t1 = (dotDeltaZ + boxMin.y) / dotDirZ;
-		float t2 = (dotDeltaZ / boxMax.y) / dotDirZ;
+		float t2 = (dotDeltaZ + boxMax.y) / dotDirZ;
 
 		if (t1 > t2) swap(t1, t2);
 

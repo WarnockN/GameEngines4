@@ -37,7 +37,7 @@ void MouseEventListener::NotifyMousePressed(int buttonType_) {
 }
 
 void MouseEventListener::NotifyMouseReleased(int buttonType_) {
-	if (engineInstance) engineInstance->NotifyMousePressed(mouse, buttonType_);
+	if (engineInstance) engineInstance->NotifyMouseReleased(mouse, buttonType_);
 }
 
 void MouseEventListener::NotifyMouseMove() {
@@ -52,7 +52,6 @@ void MouseEventListener::UpdateMousePosition() {
 	int tmpX, tmpY;
 	SDL_GetMouseState(&tmpX, &tmpY);
 	tmpY = static_cast<int>(engineInstance->GetScreenHeight()) - tmpY;
-	tmpX = static_cast<int>(engineInstance->GetScreenWidth()) - tmpX;
 
 	if (firstUpdate) {
 		prevMouse.x = mouse.x = tmpX;
