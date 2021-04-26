@@ -44,8 +44,6 @@ public:
 	void ProcessMouseMovement(vec2 offset_);
 	void ProcessMouseZoom(int y_);
 
-	vec4* ExtractFrustumPlanes();
-
 private:
 	void UpdateCameraVectors();
 	vec3 position;
