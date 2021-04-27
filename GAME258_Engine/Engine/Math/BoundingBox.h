@@ -24,12 +24,17 @@ struct BoundingBox {
 
 	inline bool Intersects(BoundingBox* box_) {
 		vec3 minCorner = GetTransformedPoint(minVert, transform);
-		vec3 maxCorner = GetTransformedPoint(minVert, transform);
+		vec3 maxCorner = GetTransformedPoint(maxVert, transform);
 
 		vec3 otherMinCorner = GetTransformedPoint(box_->minVert, box_->transform);
 		vec3 otherMaxCorner = GetTransformedPoint(box_->maxVert, box_->transform);
 
-		return true;
+		//check for collision in all 3 axes and return true, else return false.
+		if (minCorner.x <= otherMaxCorner.x && maxCorner.x >= otherMinCorner.x &&
+			minCorner.y <= otherMaxCorner.y && maxCorner.y >= otherMinCorner.y &&
+			minCorner.z <= otherMaxCorner.z && maxCorner.z >= otherMinCorner.z) return true;
+
+		return false;
 	}
 
 private:

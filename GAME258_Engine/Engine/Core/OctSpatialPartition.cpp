@@ -127,12 +127,26 @@ GameObject* OctSpatialPartition::GetCollision(Ray ray_) {
 
 void OctSpatialPartition::AddObjectToCell(OctNode* cell_, GameObject* obj_) {
 	if (obj_->GetBoundingBox().Intersects(cell_->GetBoundingBox())) {
-		if (cell_->IsLeaf()) cell_->AddCollisionObject(obj_);
+		if (cell_->IsLeaf()) { 
+			cell_->AddCollisionObject(obj_); 
+			cout << "Added " << obj_->GetTag() << " to cell. Max: " << to_string(obj_->GetBoundingBox().maxVert) << endl;
+		}
+		else {
+			for (int i = 0; i < CHILDREN_NUMBER; i++) {
+				AddObjectToCell(cell_->children[i], obj_);
+			};
+		}
 	}
 }
 
 void OctSpatialPartition::PrepareCollisionQuery(OctNode* cell_, Ray ray_) {
 	if (ray_.IsColliding(cell_->GetBoundingBox())) {
-		if (cell_->IsLeaf()) rayIntersectionList.push_back(cell_);
+		if (cell_->IsLeaf()) rayIntersectionList.push_back(cell_); 
+			
+		else {
+			for (int i = 0; i < CHILDREN_NUMBER; i++) {
+				PrepareCollisionQuery(cell_->children[i], ray_);
+			};
+		}
 	}
 }
