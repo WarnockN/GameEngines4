@@ -91,8 +91,8 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_) {
 	float dotDirZ = dot(rayDir, zAxis);
 
 	if (fabs(dotDirZ) > 0.001f) {
-		float t1 = (dotDeltaZ + boxMin.y) / dotDirZ;
-		float t2 = (dotDeltaZ + boxMax.y) / dotDirZ;
+		float t1 = (dotDeltaZ + boxMin.z) / dotDirZ;
+		float t2 = (dotDeltaZ + boxMax.z) / dotDirZ;
 
 		if (t1 > t2) swap(t1, t2);
 

@@ -35,6 +35,7 @@ void OctNode::Octify(int depth_) {
 		float half = size / 2.0f;
 		
 		{
+			//										   y/x/z									x						 y							  z			
 			children[static_cast<int>(OctChildren::OCT_TLF)] = new OctNode(vec3(octBounds->minVert.x, octBounds->minVert.y + half, octBounds->minVert.z + half), half, this);
 			
 			children[static_cast<int>(OctChildren::OCT_BLF)] = new OctNode(vec3(octBounds->minVert.x, octBounds->minVert.y, octBounds->minVert.z + half), half, this);
@@ -125,9 +126,13 @@ GameObject* OctSpatialPartition::GetCollision(Ray ray_) {
 }
 
 void OctSpatialPartition::AddObjectToCell(OctNode* cell_, GameObject* obj_) {
-
+	if (obj_->GetBoundingBox().Intersects(cell_->GetBoundingBox())) {
+		if (cell_->IsLeaf()) cell_->AddCollisionObject(obj_);
+	}
 }
 
 void OctSpatialPartition::PrepareCollisionQuery(OctNode* cell_, Ray ray_) {
-
+	if (ray_.IsColliding(cell_->GetBoundingBox())) {
+		if (cell_->IsLeaf()) rayIntersectionList.push_back(cell_);
+	}
 }
