@@ -51,7 +51,7 @@ void Camera::ProcessMouseMovement(vec2 offset_) {
 	offset_ *= 0.05f;
 
 	yaw += offset_.x;
-	pitch += offset_.y;
+	pitch -= offset_.y;
 
 	if (pitch > 89.0f) pitch = 89.0f;
 	if (pitch < -89.0f) pitch = -89.0f;
