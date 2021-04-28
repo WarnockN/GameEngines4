@@ -25,7 +25,7 @@ OctNode::~OctNode() {
 	}
 
 	for (int i = 0; i < CHILDREN_NUMBER; i++) {
-		if (children[i] == nullptr) delete children[i];
+		if (children[i] != nullptr) delete children[i];
 		children[i] = nullptr;
 	}
 }
@@ -111,7 +111,8 @@ GameObject* OctSpatialPartition::GetCollision(Ray ray_) {
 	float shortestDistance = FLT_MAX;
 	for (auto cell : rayIntersectionList) {
 		for (auto obj : cell->objectList) {
-			if (ray_.IsColliding(&obj->GetBoundingBox())) {
+			BoundingBox g = obj->GetBoundingBox();
+			if (ray_.IsColliding(&g)) {
 				if (ray_.intersectionDist < shortestDistance) {
 					result = obj;
 					shortestDistance = ray_.intersectionDist;
@@ -129,12 +130,12 @@ void OctSpatialPartition::AddObjectToCell(OctNode* cell_, GameObject* obj_) {
 	if (obj_->GetBoundingBox().Intersects(cell_->GetBoundingBox())) {
 		if (cell_->IsLeaf()) { 
 			cell_->AddCollisionObject(obj_); 
-			cout << "Added " << obj_->GetTag() << " to cell. Max: " << to_string(obj_->GetBoundingBox().maxVert) << endl;
+			cout << "Added " << obj_->GetTag() << " to cell. Max: " << to_string(cell_->GetBoundingBox()->maxVert) << endl;
 		}
 		else {
 			for (int i = 0; i < CHILDREN_NUMBER; i++) {
 				AddObjectToCell(cell_->children[i], obj_);
-			};
+			}
 		}
 	}
 }
@@ -146,7 +147,7 @@ void OctSpatialPartition::PrepareCollisionQuery(OctNode* cell_, Ray ray_) {
 		else {
 			for (int i = 0; i < CHILDREN_NUMBER; i++) {
 				PrepareCollisionQuery(cell_->children[i], ray_);
-			};
+			}
 		}
 	}
 }
